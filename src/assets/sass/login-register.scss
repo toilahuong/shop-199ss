@@ -1,0 +1,59 @@
+.sec-guest {
+    max-width: 350px;
+    margin: 30px auto;
+    text-align: center;
+    h1 {
+        font-family: r0c0Bold;
+        font-weight: bolder;
+        color: #000;
+    }
+    .form-group {
+        padding: 10px 0;
+        input {
+            width: 100%;
+            border: 2px solid #ddd;
+            padding: 0.75em;
+            border-radius: 1.5em;
+            outline: none;
+            font-size: 16px;
+            transition: .3s ease;
+            &:focus {
+                border: 2px solid #000;
+            }
+        }
+        button {
+            width: 100%;
+            padding: 0.75em;
+            border-radius: 1.5em;
+            outline: none;
+            font-size: 16px;
+            font-weight: bolder;
+            text-transform: uppercase;
+            background-color: #000;
+            border: 2px solid #000;
+            color: #fff;
+            transition: .3s ease;
+            &:hover {
+                color: #000;
+                background-color: #fff;
+            }
+        }
+    }
+    a {
+        color: #000;
+        font-weight: bolder;
+
+    }
+    .forget-pass {
+        padding: 5px 0;
+       
+    }
+    .signup-now {
+        padding: 5px 0;
+    }
+    .error-message {
+        color: red;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+}

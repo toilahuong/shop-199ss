@@ -1,0 +1,15 @@
+.dropdown {
+    &-menu {
+        position: absolute;
+        top: 100%;
+        left: 0px;
+        transform: scaleY(0);
+        transform-origin: top;
+        overflow: hidden;
+        transition: .2s ease;
+        z-index: 111;
+    }
+    &:hover > .dropdown-menu {
+        transform: scaleY(1);
+    }
+}

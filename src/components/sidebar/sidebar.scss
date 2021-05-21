@@ -1,0 +1,37 @@
+@import '../../assets/sass/variable.scss';
+.sec-sidebar + .sec-sidebar {
+    margin-top: 30px;
+}
+.sec-sidebar {
+    .item {
+        background-color: #fff;
+        padding: 10px;
+        border-top: 1px solid #eee;
+        display: flex;
+        &__thumbnail {
+            margin-right: 20px;
+            img {
+                min-width: 72px;
+                min-height: 72px;
+                max-width: 72px;
+                max-height: 72px;
+                object-fit: cover;
+            }
+        }
+        h6 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+        .price {
+            font-weight: bolder;
+        }
+        &__regular-price {
+            font-size: 12px;
+            text-decoration: line-through;
+            margin-right: 5px;
+            font-weight: 400;
+        }
+    }
+}
