@@ -7,3 +7,7 @@ export function format_price(price) {
 export function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
+export function isLoggedIn() {
+    if (localStorage.getItem("auth") === "" || localStorage.getItem("auth") === null) return false;
+    return true;
+}

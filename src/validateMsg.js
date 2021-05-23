@@ -17,7 +17,11 @@ const message = [
     },
     {
         type: "matchpass",
-        msg: "không khớp với password"
+        msg: "không khớp"
+    },
+    {
+        type: "matchphone",
+        msg: "không đúng"
     }
 ];
 export default function validateMsg(fieldName, type) {

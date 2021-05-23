@@ -3,25 +3,39 @@ import { GrClose } from "react-icons/gr";
 import ShowMenu from "./ShowMenu";
 import { useEffect, useState } from "react";
 import { CLIENT } from "../../../config";
+import { isLoggedIn } from "../../../func";
 export default function MobileMenu(props) {
     const {isActive,handler} = props;
     const [menu, setMenu] = useState([]);
     useEffect(() => {
-        const userMenu = [
+        let userMenu = [];
+        if(isLoggedIn()) {
+            userMenu = [
+                {
+                    label: "Tài khoản",
+                    url: CLIENT+"/profile",
+                    level: 1,
+                    hasChildren: false,
+                }
+            ];
+        } else {
+            userMenu = [
             
-            {
-                label: "Đăng ký",
-                url: CLIENT+"/dang-ky",
-                level: 1,
-                hasChildren: false,
-            },
-            {
-                label: "Đăng Nhập",
-                url: CLIENT+"/dang-nhap",
-                level: 1,
-                hasChildren: false,
-            }
-        ];
+                {
+                    label: "Đăng ký",
+                    url: CLIENT+"/dang-ky",
+                    level: 1,
+                    hasChildren: false,
+                },
+                {
+                    label: "Đăng Nhập",
+                    url: CLIENT+"/dang-nhap",
+                    level: 1,
+                    hasChildren: false,
+                }
+            ];
+        }
+        
         const newData = [...dataMenu,...userMenu];
         setMenu(newData);
     },[])

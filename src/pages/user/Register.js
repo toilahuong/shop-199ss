@@ -1,26 +1,26 @@
+import Axios from "axios";
 import { ErrorMessage, FastField, Form, Formik } from "formik";
 import { Container } from "react-bootstrap";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
+import { SERVER } from "../../config";
 import validateMsg from "../../validateMsg";
 const RegisterSchema = Yup.object().shape({
-    username: Yup.string()
-        .min(3, (Obj) => validateMsg(Obj.path, "min"))
-        .max(50, (Obj) => validateMsg(Obj.path, "max"))
-        .required((Obj) => validateMsg(Obj.path, "required")),
-    fullname: Yup.string()
-        .required((Obj) => validateMsg(Obj.path, "required")),
-    phone: Yup.string()
-        .required((Obj) => validateMsg(Obj.path, "required")),
     email: Yup.string()
-        .email((Obj) => validateMsg(Obj.path, "email"))
-        .required((Obj) => validateMsg(Obj.path, "required")),
+        .email(() => validateMsg("Email", "email"))
+        .required(() => validateMsg("Email", "required")),
+    full_name: Yup.string()
+        .required(() => validateMsg("Họ và tên", "required")),
+    phone: Yup.string()
+        .required(() => validateMsg("Số điện thoại", "required"))
+        .matches(/([+84|84|0]+(3|5|7|8|9|1[2|6|8|9]))+([0-9]{8})\b/g, () => validateMsg("Số điện thoại", "matchphone")),
     password: Yup.string()
-        .min(6, (Obj) => validateMsg(Obj.path, "min"))
-        .max(50, (Obj) => validateMsg(Obj.path, "max"))
-        .required((Obj) => validateMsg(Obj.path, "required")),
-    passwordConfirmation: Yup.string()
-        .oneOf([Yup.ref('password'), null], (Obj) => validateMsg(Obj.path, "matchpass"))
-        .required((Obj) => validateMsg(Obj.path, "required")),
+        .min(6, () => validateMsg("Mật khẩu", "min"))
+        .max(50, () => validateMsg("Mật khẩu", "max"))
+        .required(() => validateMsg("Mật khẩu", "required")),
+    confirm_password: Yup.string()
+        .oneOf([Yup.ref('password'), null], () => validateMsg("Mật khẩu", "matchpass"))
+        .required(() => validateMsg("Nhập lại mật khẩu", "required")),
 });
 export default function Register() {
     return (
@@ -30,45 +30,69 @@ export default function Register() {
                 <div className="social-login">
 
                 </div>
+
                 <Formik
                     initialValues={{
-                        username: '',
-                        fullname: '',
-                        phone: '',
                         email: '',
+                        full_name: '',
+                        phone: '',
                         password: '',
-                        passwordConfirmation: '',
+                        confirm_password: '',
                     }}
                     validationSchema={RegisterSchema}
                     onSubmit={async (values) => {
-                        await new Promise((r) => setTimeout(r, 500));
-                        alert(JSON.stringify(values, null, 2));
+                        try {
+                            await Axios.post(`${SERVER}/api/user/register`, values);
+                            toast.success("Đăng ký tài khoản thành công",{
+                                position: "top-center",
+                                autoClose: 2000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                            setTimeout(() => {
+                                window.location = "/dang-nhap"; 
+                            },2000);
+                        } catch (error) {
+                            if(error.response) {
+                                error.response.data.errors.forEach((elm) => {
+                                    toast.warn(elm.msg,{
+                                        position: "top-center",
+                                        autoClose: 3000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                    });
+                                })
+                            }
+                        }
                     }}
                 >
                     <Form>
-                        <div className="form-group">
-                            <FastField name="username" placeholder="Tên đăng nhập"/>
-                            <ErrorMessage name="username" render={msg => <div className="error-message">{msg}</div>} />
-                        </div>
-                        <div className="form-group">
-                            <FastField name="fullname" placeholder="Họ và tên"/>
-                            <ErrorMessage name="fullname" render={msg => <div className="error-message">{msg}</div>} />
-                        </div>
-                        <div className="form-group">
-                            <FastField name="phone" placeholder="Số điện thoại"/>
-                            <ErrorMessage name="phone" render={msg => <div className="error-message">{msg}</div>} />
-                        </div>
                         <div className="form-group">
                             <FastField type="email" name="email" placeholder="Email"/>
                             <ErrorMessage name="email" render={msg => <div className="error-message">{msg}</div>} />
                         </div>
                         <div className="form-group">
+                            <FastField name="full_name" placeholder="Họ và tên"/>
+                            <ErrorMessage name="full_name" render={msg => <div className="error-message">{msg}</div>} />
+                        </div>
+                        <div className="form-group">
+                            <FastField name="phone" placeholder="Số điện thoại"/>
+                            <ErrorMessage name="phone" render={msg => <div className="error-message">{msg}</div>} />
+                        </div>
+                       
+                        <div className="form-group">
                             <FastField type="password" name="password" placeholder="********" autoComplete="on"/>
                             <ErrorMessage name="password" render={msg => <div className="error-message">{msg}</div>} />
                         </div>
                         <div className="form-group">
-                            <FastField type="password" name="passwordConfirmation" placeholder="********" autoComplete="on"/>
-                            <ErrorMessage name="passwordConfirmation" render={msg => <div className="error-message">{msg}</div>} />
+                            <FastField type="password" name="confirm_password" placeholder="********" autoComplete="on"/>
+                            <ErrorMessage name="confirm_password" render={msg => <div className="error-message">{msg}</div>} />
                         </div>
                         <div className="form-group">
                             <button type="submit" className="btn"> Đăng Ký </button>

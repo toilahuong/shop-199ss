@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { incrementNumberProduct, incrementProduct } from "../../../features/cart/cartSlide";
+import { incrementNumberProduct, incrementProduct } from "../../../features/cart/cartSlice";
 import {format_price} from "../../../func";
 export default function ProductDescription() {
     const [amount,setAmount] = useState(1);

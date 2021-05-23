@@ -1,7 +1,7 @@
 import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { format_price } from "../../../func";
-import { decrementNumberProduct, removeProduct } from "../../../features/cart/cartSlide";
+import { decrementNumberProduct, removeProduct } from "../../../features/cart/cartSlice";
 import { useEffect, useState } from "react";
 export default function ShowCart(props) {
     const {isActive,handler} = props;
