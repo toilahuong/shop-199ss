@@ -12,7 +12,7 @@ export default function Banner() {
     };
     return (
         <Slider {...settings}>
-          {dataBanner.map((item,index) => <div key={index}><img src={item.img} alt={item.title} className="img-fluid"/></div>)}
+          {dataBanner.map((item,index) => <div key={index}><img loading="lazy" src={item.img} alt={item.title} className="img-fluid"/></div>)}
         </Slider>
     );
 }

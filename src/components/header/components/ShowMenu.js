@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import $ from "jquery";
 import { FiChevronDown,FiChevronRight } from "react-icons/fi";
 export default function ShowMenu(props) {
     const {menu,icon} = props;
@@ -10,18 +11,22 @@ export default function ShowMenu(props) {
 }
 function MenuItem(props) {
     const [active, setActive] = useState(false);
+    const elm = useRef();
     const handleClick = (e) => {
-        e.stopPropagation();
         setActive(!active);
+        if(elm.current) {
+            let element = $(elm.current);
+            element.animate({'height': 'toggle'})
+        }
     }
     const {item,icon} = props;
     return (
-        <li className={item.hasChildren ? "has-menu" + (active ? " active" : "") : ""} onClick={handleClick}>
-            <a href={item.url} onClick={(e) => e.stopPropagation()}>{item.label}</a>
+        <li className={item.hasChildren ? "has-menu" : ""} >
+            <a href={item.url}>{item.label}</a>
             {item.hasChildren ? 
             <>
-                <IconLevel level={item.level} icon={icon}/>
-                <ul>
+                <IconLevel onClick={handleClick} level={item.level} icon={icon} />
+                <ul ref={elm}>
                     <ShowMenu menu={item.childrens} icon={icon}/>
                 </ul>
             </> : ""}
@@ -33,7 +38,7 @@ function IconLevel(props) {
     const {level, icon} = props;
     if (level === 1 || icon === "down") {
         return (
-            <span className="menu-icon"><FiChevronDown /></span>
+            <span onClick={props.onClick}className="menu-icon"><FiChevronDown /></span>
         )
     } else {
         return (

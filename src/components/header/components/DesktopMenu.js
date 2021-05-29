@@ -1,7 +1,6 @@
 import { Container } from "react-bootstrap";
 import { BiUserCircle } from "react-icons/bi";
 import { useSelector } from "react-redux";
-import { isLoggedIn } from "../../../func";
 import { dataMenu } from "../dataMenu";
 import ShowMenu from "./ShowMenu";
 
@@ -15,7 +14,7 @@ export default function DesktopMenu() {
                         <ShowMenu menu={dataMenu} icon="right"/>
                     </ul>
                     {
-                        isLoggedIn() ? 
+                        Auth.isLoggedIn ? 
                             <div className="menu-u">
                                 <BiUserCircle style={{fontSize: '20px', verticalAlign: 'middle'}} /> <a href="/profile">{Auth.current.full_name}</a>
                             </div>    

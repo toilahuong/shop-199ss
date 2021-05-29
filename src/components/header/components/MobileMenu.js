@@ -3,13 +3,14 @@ import { GrClose } from "react-icons/gr";
 import ShowMenu from "./ShowMenu";
 import { useEffect, useState } from "react";
 import { CLIENT } from "../../../config";
-import { isLoggedIn } from "../../../func";
+import { useSelector } from "react-redux";
 export default function MobileMenu(props) {
+    const Auth = useSelector((state) => state.auth);
     const {isActive,handler} = props;
     const [menu, setMenu] = useState([]);
     useEffect(() => {
         let userMenu = [];
-        if(isLoggedIn()) {
+        if(Auth.isLoggedIn) {
             userMenu = [
                 {
                     label: "Tài khoản",
@@ -38,7 +39,7 @@ export default function MobileMenu(props) {
         
         const newData = [...dataMenu,...userMenu];
         setMenu(newData);
-    },[])
+    },[Auth.isLoggedIn])
     return (
         <div className={"sidebar" + (isActive ? " active": "")}>
             <div className="sidebar__bg" onClick={handler}></div>

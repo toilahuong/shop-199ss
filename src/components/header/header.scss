@@ -318,16 +318,7 @@
             ul {
                 border-top: 1px solid #ddd;
                 padding-left: 10px;
-                overflow: hidden;
-                visibility: hidden;
-                opacity: 0;
-                max-height: 0px;
-                transition: 1s ease;
-            }
-            &.active > ul {
-                opacity: 1;
-                visibility: initial;
-                max-height: 1000px;
+                display: none;
             }
         }
     }

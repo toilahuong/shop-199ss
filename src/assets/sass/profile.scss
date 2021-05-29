@@ -1,0 +1,69 @@
+.sec-profile {
+    background-color: #faf6f6;
+    padding-bottom: 30px;
+}
+.profile__sidebar {
+    background-color: #fff;
+    padding: 20px 0;
+    a {
+        padding: 0.75em 1em;
+        display: block;
+        font-weight: bolder;
+        font-size: 16px;
+    }
+}
+.profile__main {
+    background-color: #fff;
+    font-size: 16px;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    table {
+        width: 100%;
+        margin: 0 auto;
+    }
+    td {
+        padding: 0.75em 1em;
+        vertical-align: middle;
+        line-height: 1.5;
+        &:first-child {
+            width: 150px;
+            font-weight: bolder;
+            color: #000;
+        }
+        &:last-child {
+            padding-bottom: 20px;
+        }
+    }
+    .none {
+        font-style: italic;
+        color: #b2a9a9;
+        outline: none;
+    }
+    input {
+        width: 100%;
+        display: block;
+        border: 1px solid #ddd;
+        padding: 10px;
+        &:disabled {
+            background-color: #ddd;
+        }
+        font-size: 16px;
+    }
+    button {
+        width: 200px;
+        display: block;
+        margin: 0 auto;
+        background-color: #000;
+        border: 2px solid #000;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bolder;
+        text-align: center;
+        padding: 10px;
+        transition: .3s ease;
+        &:hover {
+            background-color: #fff;
+            color: #000;
+        }
+    }
+}
