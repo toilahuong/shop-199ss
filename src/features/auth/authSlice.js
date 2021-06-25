@@ -9,6 +9,7 @@ export const getUser = createAsyncThunk("auth/getUser", async (param, thunkApi) 
 });
 const cartSlice = createSlice({
     name: 'auth',
+    
     initialState: {
         current: {},
         loading: true,
